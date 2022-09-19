@@ -3,6 +3,7 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom"
 import './Login.css'
+import { Divider } from 'antd';
 
 const Login = () => {
     const onFinish = (values) => {
@@ -57,10 +58,12 @@ const Login = () => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                    <Button block type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>
-                    New in this website? <Link to="/">register now!</Link>
+                    <div className='register-now'>New in this website? <Link to="/">register now!</Link></div>
+                    <Divider>or</Divider>
+                    <Button type='primary' block>Login with Google</Button>
                 </Form.Item>
             </Form>
         </div>
