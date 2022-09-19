@@ -1,6 +1,14 @@
 .login-form {
-    margin-top: 100px;
-    text-align: left;
+    height: 100vh;
+}
+
+.login-card {
+
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .form-style {
@@ -8,6 +16,11 @@
     margin: 0 auto;
 }
 
+.remember-me {
+    text-align: left;
+}
+
 .register-now {
-    padding-top: 3px;
+    padding-top: 4px;
+    text-align: left;
 }

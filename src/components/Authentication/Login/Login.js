@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom"
 import './Login.css'
 import { Divider } from 'antd';
+import { Card } from 'antd';
 
 const Login = () => {
     const onFinish = (values) => {
@@ -11,61 +12,70 @@ const Login = () => {
     };
 
     return (
-        <div className='login-form'>
-            <Form
-                className='form-style'
-                name="normal_login"
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-            >
-                <Form.Item
-                    name="username"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Username!',
-                        },
-                    ]}
+        <div className='login-form' style={{ backgroundColor: '#ececec' }}>
+
+            <div className="login-card">
+                <Card
+                    title="Please Login"
+                    bordered={false}
+                    style={{
+                        width: 400,
+                        textAlign: 'center',
+                    }}
                 >
-                    <Input prefix={<UserOutlined />} placeholder="Username" />
+                    <Form
+                        className='form-style'
+                        name="normal_login"
+                        initialValues={{
+                            remember: true,
+                        }}
+                        onFinish={onFinish}
+                    >
+                        <Form.Item
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Username!',
+                                },
+                            ]}
+                        >
+                            <Input prefix={<UserOutlined />} placeholder="Username" />
 
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Password!',
-                        },
-                    ]}
-                >
-                    <Input
-                        prefix={<LockOutlined />}
-                        type="password"
-                        placeholder="Password"
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Password!',
+                                },
+                            ]}
+                        >
+                            <Input
+                                prefix={<LockOutlined />}
+                                type="password"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
 
-                    {/* <a className="login-form-forgot" href="">
-                        Forgot password
-                    </a> */}
-                </Form.Item>
+                        <Form.Item className='remember-me' name="remember" valuePropName="checked">
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
 
-                <Form.Item>
-                    <Button block type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-                    </Button>
-                    <div className='register-now'>New in this website? <Link to="/">register now!</Link></div>
-                    <Divider>or</Divider>
-                    <Button type='primary' block>Login with Google</Button>
-                </Form.Item>
-            </Form>
+                        <Form.Item>
+                            <Button block type="primary" htmlType="submit">
+                                Log in
+                            </Button>
+                            <div className='register-now'>New in this website? <Link to="/">register now!</Link></div>
+                            <Divider>or</Divider>
+                            <Button type='primary' block>Login with Google</Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
+            </div>
+
+
         </div>
     );
 };
