@@ -3,14 +3,16 @@ import Login from './components/Authentication/Login/Login';
 import { Routes, Route } from "react-router-dom";
 import Dashboard from './components/Dashboard/Dashboard';
 import Register from './components/Authentication/Register/Register';
+import Navbar from './components/Shared/Navbar/Navbar';
 
 function App() {
   return (
     <div className="App">
-      <h2>Dashboard with AntD</h2>
+      <Navbar />
       <Routes>
+
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </div >

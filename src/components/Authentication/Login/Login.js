@@ -103,8 +103,6 @@ const Login = () => {
                     <Button onClick={() => signInWithGoogle()} type='primary' block>Login with Google</Button>
                 </Card>
             </div>
-
-
         </div>
     );
 };
