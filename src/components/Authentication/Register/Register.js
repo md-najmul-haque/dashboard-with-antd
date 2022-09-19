@@ -4,15 +4,25 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom"
 import { Divider } from 'antd';
 import { Card } from 'antd';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import { useUpdateProfile } from 'react-firebase-hooks/auth';
 
 
 const Register = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
+        await createUserWithEmailAndPassword(values.email, values.password)
+        await updateProfile({ displayName: values.name });
     };
 
     return (
@@ -48,15 +58,16 @@ const Register = () => {
 
                         </Form.Item>
                         <Form.Item
-                            name="username"
+                            name="email"
                             rules={[
                                 {
+                                    type: 'email',
                                     required: true,
-                                    message: 'Please input your Username!',
+                                    message: 'Please input your valid email!',
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined />} placeholder="Username" />
+                            <Input prefix={<UserOutlined />} placeholder="Your Email" />
 
                         </Form.Item>
                         <Form.Item
