@@ -7,6 +7,7 @@ import { Card } from 'antd';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import Loading from '../../Loading/Loading';
 
 
 const Register = () => {
@@ -24,6 +25,16 @@ const Register = () => {
         await createUserWithEmailAndPassword(values.email, values.password)
         await updateProfile({ displayName: values.name });
     };
+
+    if (loading || updating || gLoading) {
+        return <Loading />
+    }
+
+    let errorMessage;
+
+    if (error || updateError || gError) {
+        errorMessage = <p>Error: {error?.message}||{updateError?.message}||{gError?.message}</p>
+    }
 
     return (
         <div className='login-form' style={{ backgroundColor: '#ececec' }}>
@@ -86,7 +97,7 @@ const Register = () => {
                             />
                         </Form.Item>
 
-                        <Form.Item className='remember-me' name="remember" valuePropName="checked">
+                        <Form.Item className='text-left' name="remember" valuePropName="checked">
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
 
@@ -97,6 +108,7 @@ const Register = () => {
                             <div className='register-now'>Already have an account? <Link to="/login">Login now!</Link></div>
                         </Form.Item>
                     </Form>
+                    <div className='text-left'>{errorMessage}</div>
                     <Divider>or</Divider>
                     <Button onClick={() => signInWithGoogle()} type='primary' block>Login with Google</Button>
                 </Card>

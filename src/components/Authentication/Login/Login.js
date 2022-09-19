@@ -64,7 +64,7 @@ const Login = () => {
                             />
                         </Form.Item>
 
-                        <Form.Item className='remember-me' name="remember" valuePropName="checked">
+                        <Form.Item className='text-left' name="remember" valuePropName="checked">
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
 
