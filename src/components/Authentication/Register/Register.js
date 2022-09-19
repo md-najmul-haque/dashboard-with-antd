@@ -2,14 +2,13 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom"
-import './Login.css'
 import { Divider } from 'antd';
 import { Card } from 'antd';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 
-const Login = () => {
+const Register = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     const onFinish = (values) => {
@@ -21,7 +20,7 @@ const Login = () => {
 
             <div className="login-card">
                 <Card
-                    title="Please Login"
+                    title="Signup Here"
                     bordered={false}
                     style={{
                         width: 400,
@@ -36,6 +35,18 @@ const Login = () => {
                         }}
                         onFinish={onFinish}
                     >
+                        <Form.Item
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Name!',
+                                },
+                            ]}
+                        >
+                            <Input prefix={<UserOutlined />} placeholder="Your Name" />
+
+                        </Form.Item>
                         <Form.Item
                             name="username"
                             rules={[
@@ -70,9 +81,9 @@ const Login = () => {
 
                         <Form.Item>
                             <Button block type="primary" htmlType="submit">
-                                Log in
+                                Register
                             </Button>
-                            <div className='register-now'>New in this website? <Link to="/register">register now!</Link></div>
+                            <div className='register-now'>Already have an account? <Link to="/login">Login now!</Link></div>
                         </Form.Item>
                     </Form>
                     <Divider>or</Divider>
@@ -85,4 +96,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
