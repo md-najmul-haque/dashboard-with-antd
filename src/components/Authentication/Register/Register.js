@@ -33,7 +33,7 @@ const Register = () => {
     let errorMessage;
 
     if (error || updateError || gError) {
-        errorMessage = <p>Error: {error?.message}||{updateError?.message}||{gError?.message}</p>
+        errorMessage = <p style={{ color: '#ff3333' }}>Error: {error?.message}||{updateError?.message}||{gError?.message}</p>
     }
 
     return (

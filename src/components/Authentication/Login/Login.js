@@ -1,27 +1,49 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom"
-import './Login.css'
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from "react-router-dom"
 import { Divider } from 'antd';
 import { Card } from 'antd';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-
+import Loading from '../../Loading/Loading';
+import "./Login.css"
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
 
-    const onFinish = (values) => {
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const navigate = useNavigate()
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
+        await signInWithEmailAndPassword(values.email, values.password)
     };
+
+    if (loading || gLoading) {
+        return <Loading />
+    }
+
+    let errorMessage;
+
+    if (error || gError) {
+        errorMessage = <p style={{ color: '#ff3333' }}>Error: {error?.message}||{gError?.message}</p>
+    }
+
+    if (user || gUser) {
+        navigate('/dashboard')
+    }
 
     return (
         <div className='login-form' style={{ backgroundColor: '#ececec' }}>
 
             <div className="login-card">
                 <Card
-                    title="Please Login"
+                    title="Login Here"
                     bordered={false}
                     style={{
                         width: 400,
@@ -37,15 +59,16 @@ const Login = () => {
                         onFinish={onFinish}
                     >
                         <Form.Item
-                            name="username"
+                            name="email"
                             rules={[
                                 {
+                                    type: 'email',
                                     required: true,
-                                    message: 'Please input your Username!',
+                                    message: 'Please input your valid email!',
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined />} placeholder="Username" />
+                            <Input prefix={<MailOutlined />} placeholder="Your Email" />
 
                         </Form.Item>
                         <Form.Item
@@ -57,7 +80,7 @@ const Login = () => {
                                 },
                             ]}
                         >
-                            <Input
+                            <Input.Password
                                 prefix={<LockOutlined />}
                                 type="password"
                                 placeholder="Password"
@@ -70,11 +93,12 @@ const Login = () => {
 
                         <Form.Item>
                             <Button block type="primary" htmlType="submit">
-                                Log in
+                                Login
                             </Button>
-                            <div className='register-now'>New in this website? <Link to="/register">register now!</Link></div>
+                            <div className='register-now'>New in this website? <Link to="/register">Register now!</Link></div>
                         </Form.Item>
                     </Form>
+                    <div className='text-left'>{errorMessage}</div>
                     <Divider>or</Divider>
                     <Button onClick={() => signInWithGoogle()} type='primary' block>Login with Google</Button>
                 </Card>
