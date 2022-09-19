@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom"
 import { Divider } from 'antd';
 import { Card } from 'antd';
@@ -67,7 +67,7 @@ const Register = () => {
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined />} placeholder="Your Email" />
+                            <Input prefix={<MailOutlined />} placeholder="Your Email" />
 
                         </Form.Item>
                         <Form.Item
@@ -79,7 +79,7 @@ const Register = () => {
                                 },
                             ]}
                         >
-                            <Input
+                            <Input.Password
                                 prefix={<LockOutlined />}
                                 type="password"
                                 placeholder="Password"
