@@ -10,3 +10,9 @@
     width: 100%;
     max-width: 200px;
 }
+
+.dashboard-menu-header {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 0;
+}

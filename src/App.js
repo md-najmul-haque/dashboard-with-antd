@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
