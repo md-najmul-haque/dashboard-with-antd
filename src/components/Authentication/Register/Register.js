@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Divider } from 'antd';
 import { Card } from 'antd';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
@@ -19,6 +19,7 @@ const Register = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const navigate = useNavigate()
 
     const onFinish = async (values) => {
         console.log('Received values of form: ', values);
@@ -34,6 +35,10 @@ const Register = () => {
 
     if (error || updateError || gError) {
         errorMessage = <p style={{ color: '#ff3333' }}>Error: {error?.message}||{updateError?.message}||{gError?.message}</p>
+    }
+
+    if (user || gUser) {
+        navigate('/dashboard')
     }
 
     return (
